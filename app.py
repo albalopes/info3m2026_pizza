@@ -3,7 +3,7 @@ import json
 from utils import db
 import os
 from flask_migrate import Migrate
-from models import Usuario
+from models import Usuario, Pizza
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -40,3 +40,11 @@ def avaliacoes():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+
+@app.route('/teste_insert') 
+def teste_insert():
+    user = Usuario("Alba Lopes", "alba.lopes@ifrn.edu.br", "12345")
+    db.session.add(user) #Insert into Usuario(nome, email, senha) values ('Alba Lopes', 'alba.lopes@ifrn.edu.br', '12345')
+    db.session.commit()
+    return 'Dados inseridos com sucesso!'
